@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Basic CRUD App</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container mt-3">
+        <a href="/" style="margin:50px;">Home Page</a>
+        <a href="/login">Logout</a>
+        <a href="/profile">profile page</a>
+        <h5>All Users Here</h5>
+        <!-- for each for created user show krne k liye  and unki details show krne k liye -->
+        <div style="flex-wrap:wrap; gap:20px" class="container d-flex mt-5">
+            <% data.reverse().forEach(function(elem){ %>
+                <div class="card" style="width: 18rem;">
+                    <a style="text-decoration:none" class="text-dark" href="/favrite/<%=elem._id%>">
+                        <div style=" background-color:white; border-radius: 20px; border: 1px solid #f3f3f3b3; right:2%; top:2% " class="capsule position-absolute p-2">
+                            <i style="color:rgb(237, 23, 59)" class="ri-heart-3-fill">
+                <%=elem.favourites.length%>
+                 <!-- for Favorite -->
+              </i> Make Favorite
+                        </div>
+                    </a>
+                    <img style=" height: 250px;" src="../images/uploads/<%=elem.dpimage%>" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%=elem.name%>
+                        </h5>
+                        <!-- <h6>Kam : <%=elem.proffesion%>
+            </h6> -->
+                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+            <a href="#" class="btn btn-primary">Go Somewhere</a> -->
+                        <a style="text-decoration:none" href="/edit/<%= elem._id%>">
+                            <i class="btn btn-warning ri-pencil-line"></i>
+                        </a>
+                        <a href="/delete/<%=elem._id%>">
+                            <i class="btn btn-info ri-delete-bin-5-line"></i>
+                        </a>
+                    </div>
+                    <!-- for comments add ans show date and time  -->
+                    <div class="mt-0">
+                        <form action="/comment/<%=elem._id%>">
+                            <label for="exampleFormControlInput1" class="form-label">Add Comment</label>
+                            <div style="gap: 15px;" class="mt-1 d-flex">
+                                <input name="comment" type="text" class="form-control" id="exampleFormControlInput1" placeholder="anything....">
+                                <button class="btn btn-success" type="submit"><i class="ri-chat-1-fill"></i></button>
+                            </div>
+                        </form>
+                        <div class="mt-2">
+                            <h5 style="opacity: .4;">All comments</h5>
+                            <% if(elem.comments.length > 0){ %>
+                                <%elem.comments.reverse().forEach(function(cmt){%>
+                                    <div style="justify-content:space-between; " class="d-flex">
+                                        <small style="display: block; padding: 5px;">
+                    <%=cmt.comment%>
+                </small>
+                                        <h6 style="opacity: .3; font-size: 10px; padding: 0 2vw;">
+                                            <%= cmt.time %>
+                                        </h6>
+                                    </div>
+                                    <% }); %>
+                                        <%  } else { %>
+                                            <h6 style="opacity: .2;">No comments </h6>
+                                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+
+</html>
